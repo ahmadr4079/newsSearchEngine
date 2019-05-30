@@ -104,3 +104,4 @@ venv.bak/
 .mypy_cache/
 
 *.sqlite3
+indexDir/

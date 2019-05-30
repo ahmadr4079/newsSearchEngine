@@ -1,10 +1,15 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect
+import whoosh
+from .indexNews import IndexNews
 
 # Create your views here.
 
 @csrf_protect
 def index(request):
+    indexNewsObject = IndexNews()
+    indexCount = indexNewsObject.getDocumentCount()
     if request.method == 'POST':
         query = request.POST['inputQuery']
         if query == '':
@@ -15,4 +20,7 @@ def index(request):
         else:
             return render(request,'mainPage/index.html')
     else:
-        return render(request,'mainPage/index.html')
+        context = {
+            'indexCount' : indexCount
+        }
+        return render(request,'mainPage/index.html',context=context)
