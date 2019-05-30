@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect
 import whoosh
+from whoosh.qparser import QueryParser,OrGroup
 from .indexNews import IndexNews
 
 # Create your views here.
@@ -11,14 +12,23 @@ def index(request):
     indexNewsObject = IndexNews()
     indexCount = indexNewsObject.getDocumentCount()
     if request.method == 'POST':
-        query = request.POST['inputQuery']
-        if query == '':
+        inputQuery = request.POST['inputQuery']
+        if inputQuery == '':
             context = {
                 'message' : 'لطفا عبارت مورد نظر خود را وارد کنید'
             }
             return render(request,'mainPage/index.html',context=context)
         else:
-            return render(request,'mainPage/index.html')
+            ix = indexNewsObject.ix
+            queryParser = QueryParser(fieldname='content',schema=ix.schema,group=OrGroup)
+            query = queryParser.parse(inputQuery)
+            with ix.searcher() as searcher:
+                results = searcher.search(query,terms=True)
+                context = {
+                'indexCount' : indexCount,
+                'results':results
+                }
+                return render(request,'mainPage/index.html',context=context)
     else:
         context = {
             'indexCount' : indexCount

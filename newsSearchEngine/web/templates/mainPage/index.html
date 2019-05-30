@@ -17,6 +17,9 @@
     </form>
     <p>تعداد اخبارهای ایندکس شده : {{ indexCount }}</p>
     <p class="warning">{{ message }}</p>
+    {% for item in results %}
+    <a href={{item.url}} >{{item.title}}</a><br>
+    {% endfor %}
   </div>
 </div>
 {% endblock %}
