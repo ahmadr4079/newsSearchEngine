@@ -1,8 +1,21 @@
-{% extends 'baseBootStrap/baseBootStrapIndex.html' %}
-{% load static %}
+{% extends 'baseBootStrap/baseBootStrapIndex.html' %} {% load static %} 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/mainPage/index.css' %}" />
-{% endblock %}
+{% endblock %} 
 {% block body %}
-    <h1>test static file css</h1>
+<div class="SearchBaseDiv">
+  <div class="SearchContent">
+    <p class="SearchHeader">جستجوی اخبار ایران و جهان</p>
+    <form>
+        {% csrf_token %}
+        <div class="form-group row">
+            <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputQuery">
+            </div>
+            <button type="submit" class="btn btn-success col-sm-2 col-form-label">جستجو</button>
+        </div>
+    </form>
+    <p>تعداد اخبارهای ایندکس شده : 20</p>
+  </div>
+</div>
 {% endblock %}

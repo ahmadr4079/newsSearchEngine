@@ -1,0 +1,12 @@
+@font-face {
+  font-family: Vazir;
+  src: url('../../Font/Vazir.eot');
+  src: url('../../Font/Vazir.eot?#iefix') format('embedded-opentype'), url('../../Font/Vazir.woff') format('woff'), url('../../Font/Vazir.ttf') format('truetype');
+  font-weight: normal;
+}
+body {
+  font-family: Vazir;
+}
+.navbar-custom{
+  background-color:rgb(0, 148, 128);
+}
