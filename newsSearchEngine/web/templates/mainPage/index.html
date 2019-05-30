@@ -6,16 +6,17 @@
 <div class="SearchBaseDiv">
   <div class="SearchContent">
     <p class="SearchHeader">جستجوی اخبار ایران و جهان</p>
-    <form>
+    <form method="POST">
         {% csrf_token %}
         <div class="form-group row">
             <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputQuery">
+            <input type="text" class="form-control" id="inputQueryID" name='inputQuery'>
             </div>
             <button type="submit" class="btn btn-success col-sm-2 col-form-label">جستجو</button>
         </div>
     </form>
     <p>تعداد اخبارهای ایندکس شده : 20</p>
+    <p class="warning">{{ message }}</p>
   </div>
 </div>
 {% endblock %}
