@@ -34,3 +34,6 @@ def index(request):
             'indexCount' : indexCount
         }
         return render(request,'mainPage/index.html',context=context)
+
+def search(request):
+    return render(request,'searchPage/searchPage.html')
