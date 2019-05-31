@@ -28,4 +28,27 @@
         </div>
     {% endfor %}
 </div>
+<div class="test1">
+    <div class="paginationBase">
+        {% if results.has_previous %}
+            <div class="paginationItem">
+                <a href="?page=1">اولین صفحه</a>
+            </div>
+            <div class="paginationItem">
+                    <a href="?page={{ results.previous_page_number }}">قبل</a>
+            </div>
+        {% endif %}
+        <div class="paginationItem">
+            <a>صفحه {{ results.number }} از {{ results.paginator.num_pages }}</a>
+        </div>
+        {% if results.has_next %}
+            <div class="paginationItem">
+                <a href="?page={{ results.next_page_number }}">بعد</a>
+            </div>
+            <div class="paginationItem">
+                    <a href="?page={{ results.paginator.num_pages }}">آخرین صفحه</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

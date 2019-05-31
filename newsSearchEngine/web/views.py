@@ -5,12 +5,12 @@ import whoosh
 from whoosh.qparser import QueryParser,OrGroup,MultifieldParser
 from whoosh import scoring
 from .indexNews import IndexNews
+from django.core.paginator import Paginator
 
 # Create your views here.
 
 @csrf_protect
 def search(request):
-    print('you are in search function')
     indexNewsObject = IndexNews()
     ix = indexNewsObject.ix
     if request.method == 'POST':
@@ -26,9 +26,12 @@ def search(request):
             queryParser = MultifieldParser(['title','content'],schema=ix.schema,group=OrGroup)
             query = queryParser.parse(inputQuery)
             with ix.searcher(weighting=scoring.TF_IDF()) as searcher:
-                results = searcher.search(query,terms=True)
+                results = searcher.search(query,terms=True,limit=45)
+                paginator = Paginator(results,15)
+                page = request.GET.get('page')
+                resultWithPage = paginator.get_page(page)
                 context = {
-                'results':results
+                'results':resultWithPage
                 }
                 return render(request,'searchPage/searchPage.html',context=context)
     else:
@@ -38,9 +41,12 @@ def search(request):
         queryParser = MultifieldParser(['title','content'],schema=ix.schema,group=OrGroup)
         query = queryParser.parse(inputQuery)
         with ix.searcher(weighting=scoring.TF_IDF()) as searcher:
-            results = searcher.search(query,terms=True)
+            results = searcher.search(query,terms=True,limit=45)
+            paginator = Paginator(results,15)
+            page = request.GET.get('page')
+            resultWithPage = paginator.get_page(page)
             context = {
-            'results':results
+            'results':resultWithPage
             }
             return render(request,'searchPage/searchPage.html',context=context)
 
