@@ -3,19 +3,19 @@
 <link rel="stylesheet" href="{% static 'css/mainPage/index.css' %}" />
 {% endblock %} 
 {% block body %}
-<div class="SearchBaseDiv">
-  <div class="SearchContent">
-    <p class="SearchHeader">جستجوی اخبار ایران و جهان</p>
+<div class="searchBaseDiv">
+  <div class="searchContent">
+    <img class="logo" src="{% static 'media/logo.png' %}">
     <form method="POST">
         {% csrf_token %}
         <div class="form-group row">
             <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputQueryID" name='inputQuery'>
+            <input type="text" class="form-control inputSearch" id="inputQueryID" name='inputQuery'>
             </div>
-            <button type="submit" class="btn btn-success col-sm-2 col-form-label">جستجو</button>
+            <button type="submit" class="btn col-sm-2 col-form-label buttonSubmit">جستجو</button>
         </div>
     </form>
-    <p>تعداد اخبارهای ایندکس شده : {{ indexCount }}</p>
+    <p class="searchInfo">تعداد اخبارهای ایندکس شده : {{ indexCount }}</p>
     <p class="warning">{{ message }}</p>
     {% for item in results %}
     <a href={{item.url}} >{{item.title}}</a><br>
