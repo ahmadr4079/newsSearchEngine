@@ -15,7 +15,7 @@
             <button type="submit" class="btn col-sm-2 col-form-label buttonSubmit">جستجو</button>
         </div>
     </form>
-    <p class="searchInfo">تعداد اخبارهای ایندکس شده : {{ indexCount }}</p>
+    <p class="searchInfo">تعداد اخبارهای فهرست شده : {{ indexCount }}</p>
     <p class="warning">{{ message }}</p>
     {% for item in results %}
     <a href={{item.url}} >{{item.title}}</a><br>
