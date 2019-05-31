@@ -14,8 +14,8 @@ def search(request):
     indexNewsObject = IndexNews()
     ix = indexNewsObject.ix
     if request.method == 'POST':
-        print('request is post')
         inputQuery = request.POST['inputQuerySearchPage']
+        request.session['inputQuery'] = inputQuery
         if inputQuery == '':
             context = {
                 'message' : 'لطفا عبارت مورد نظر خود را وارد کنید'
