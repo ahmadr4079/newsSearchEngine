@@ -23,7 +23,8 @@ def search(request):
             return render(request,'searchPage/searchPage.html',context=context)
         else:
             # queryParser = QueryParser(fieldname='content',schema=ix.schema,group=OrGroup)
-            queryParser = MultifieldParser(['title','content'],schema=ix.schema,group=OrGroup)
+            # queryParser = MultifieldParser(['title','content'],schema=ix.schema,group=OrGroup)
+            queryParser = MultifieldParser(['title','content'],schema=ix.schema)
             query = queryParser.parse(inputQuery)
             with ix.searcher(weighting=scoring.TF_IDF()) as searcher:
                 results = searcher.search(query,terms=True,limit=None)
@@ -38,7 +39,7 @@ def search(request):
         inputQuery = request.session['inputQuery']
         inputQuery = inputQuery
         # queryParser = QueryParser(fieldname='content',schema=ix.schema,group=OrGroup)
-        queryParser = MultifieldParser(['title','content'],schema=ix.schema,group=OrGroup)
+        queryParser = MultifieldParser(['title','content'],schema=ix.schema)
         query = queryParser.parse(inputQuery)
         with ix.searcher(weighting=scoring.TF_IDF()) as searcher:
             results = searcher.search(query,terms=True,limit=None)
