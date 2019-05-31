@@ -4,4 +4,7 @@
 {% endblock %} 
 {% block body %}
 <h1>searchPage</h1>
+{% for item in results %}
+    <a href={{item.url}} >{{item.title}}</a><br>
+{% endfor %}
 {% endblock %}

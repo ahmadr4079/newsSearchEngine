@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect
 import whoosh
@@ -6,6 +6,21 @@ from whoosh.qparser import QueryParser,OrGroup
 from .indexNews import IndexNews
 
 # Create your views here.
+
+def search(request):
+    inputQuery = request.session['inputQuery']
+    inputQuery = inputQuery
+    indexNewsObject = IndexNews()
+    ix = indexNewsObject.ix
+    queryParser = QueryParser(fieldname='content',schema=ix.schema,group=OrGroup)
+    query = queryParser.parse(inputQuery)
+    with ix.searcher() as searcher:
+        results = searcher.search(query,terms=True)
+        context = {
+        'results':results
+        }
+        return render(request,'searchPage/searchPage.html',context=context)
+
 
 @csrf_protect
 def index(request):
@@ -19,21 +34,10 @@ def index(request):
             }
             return render(request,'mainPage/index.html',context=context)
         else:
-            ix = indexNewsObject.ix
-            queryParser = QueryParser(fieldname='content',schema=ix.schema,group=OrGroup)
-            query = queryParser.parse(inputQuery)
-            with ix.searcher() as searcher:
-                results = searcher.search(query,terms=True)
-                context = {
-                'indexCount' : indexCount,
-                'results':results
-                }
-                return render(request,'mainPage/index.html',context=context)
+            request.session['inputQuery'] = inputQuery
+            return redirect(search)
     else:
         context = {
             'indexCount' : indexCount
         }
-        return render(request,'mainPage/index.html',context=context)
-
-def search(request):
-    return render(request,'searchPage/searchPage.html')
+    return render(request,'mainPage/index.html',context=context)
