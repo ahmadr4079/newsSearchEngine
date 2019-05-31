@@ -8,11 +8,15 @@
     <form method="POST" class="header">
             {% csrf_token %}
             <div class="form-group row ContentFromSearchPage">
-                <div>
+                <div class="test">
                 <input type="text" class="form-control inputSearch" id="inputQueryIdSearchPage" name='inputQuerySearchPage'>
                 </div>
-                <button type="submit" class="btn col-form-label buttonSubmit">جستجو</button>
+                <div class="test">
+                    <button type="submit" class="btn col-form-label buttonSubmit">جستجو</button>
+                </div>
+                {% if message %}
                 <p class="warning">{{ message }}</p>
+                {% endif %}
             </div>
         </form>
 </div>
