@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect
 import whoosh
 from whoosh.qparser import QueryParser,OrGroup,MultifieldParser
+from whoosh import scoring
 from .indexNews import IndexNews
 
 # Create your views here.
@@ -24,7 +25,7 @@ def search(request):
             # queryParser = QueryParser(fieldname='content',schema=ix.schema,group=OrGroup)
             queryParser = MultifieldParser(['title','content'],schema=ix.schema,group=OrGroup)
             query = queryParser.parse(inputQuery)
-            with ix.searcher() as searcher:
+            with ix.searcher(weighting=scoring.TF_IDF()) as searcher:
                 results = searcher.search(query,terms=True)
                 context = {
                 'results':results
@@ -36,7 +37,7 @@ def search(request):
         # queryParser = QueryParser(fieldname='content',schema=ix.schema,group=OrGroup)
         queryParser = MultifieldParser(['title','content'],schema=ix.schema,group=OrGroup)
         query = queryParser.parse(inputQuery)
-        with ix.searcher() as searcher:
+        with ix.searcher(weighting=scoring.TF_IDF()) as searcher:
             results = searcher.search(query,terms=True)
             context = {
             'results':results
