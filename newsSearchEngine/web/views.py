@@ -26,7 +26,7 @@ def search(request):
             queryParser = MultifieldParser(['title','content'],schema=ix.schema,group=OrGroup)
             query = queryParser.parse(inputQuery)
             with ix.searcher(weighting=scoring.TF_IDF()) as searcher:
-                results = searcher.search(query,terms=True,limit=45)
+                results = searcher.search(query,terms=True,limit=None)
                 paginator = Paginator(results,15)
                 page = request.GET.get('page')
                 resultWithPage = paginator.get_page(page)
@@ -41,7 +41,7 @@ def search(request):
         queryParser = MultifieldParser(['title','content'],schema=ix.schema,group=OrGroup)
         query = queryParser.parse(inputQuery)
         with ix.searcher(weighting=scoring.TF_IDF()) as searcher:
-            results = searcher.search(query,terms=True,limit=45)
+            results = searcher.search(query,terms=True,limit=None)
             paginator = Paginator(results,15)
             page = request.GET.get('page')
             resultWithPage = paginator.get_page(page)
