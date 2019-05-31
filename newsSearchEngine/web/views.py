@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect
 import whoosh
-from whoosh.qparser import QueryParser,OrGroup
+from whoosh.qparser import QueryParser,OrGroup,MultifieldParser
 from .indexNews import IndexNews
 
 # Create your views here.
@@ -21,7 +21,8 @@ def search(request):
             }
             return render(request,'searchPage/searchPage.html',context=context)
         else:
-            queryParser = QueryParser(fieldname='content',schema=ix.schema,group=OrGroup)
+            # queryParser = QueryParser(fieldname='content',schema=ix.schema,group=OrGroup)
+            queryParser = MultifieldParser(['title','content'],schema=ix.schema,group=OrGroup)
             query = queryParser.parse(inputQuery)
             with ix.searcher() as searcher:
                 results = searcher.search(query,terms=True)
@@ -32,7 +33,8 @@ def search(request):
     else:
         inputQuery = request.session['inputQuery']
         inputQuery = inputQuery
-        queryParser = QueryParser(fieldname='content',schema=ix.schema,group=OrGroup)
+        # queryParser = QueryParser(fieldname='content',schema=ix.schema,group=OrGroup)
+        queryParser = MultifieldParser(['title','content'],schema=ix.schema,group=OrGroup)
         query = queryParser.parse(inputQuery)
         with ix.searcher() as searcher:
             results = searcher.search(query,terms=True)
