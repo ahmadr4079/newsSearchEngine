@@ -3,8 +3,25 @@
 <link rel="stylesheet" href="{% static 'css/searchPage/searchPage.css' %}" />
 {% endblock %} 
 {% block body %}
-<h1>searchPage</h1>
-{% for item in results %}
-    <a href={{item.url}} >{{item.title}}</a><br>
-{% endfor %}
+<div>
+    <img class="logo header" src="{% static 'media/logo.png' %}">
+    <form method="POST" class="header">
+            {% csrf_token %}
+            <div class="form-group row ContentFromSearchPage">
+                <div>
+                <input type="text" class="form-control inputSearch" id="inputQueryIdSearchPage" name='inputQuerySearchPage'>
+                </div>
+                <button type="submit" class="btn col-form-label buttonSubmit">جستجو</button>
+                <p class="warning">{{ message }}</p>
+            </div>
+        </form>
+</div>
+<div class="searchResultBase">
+    {% for item in results %}
+        <div class="resultItem">
+                <a href={{item.url}} >{{item.title}}</a>
+                <p>{{ item.url }}</p>
+        </div>
+    {% endfor %}
+</div>
 {% endblock %}

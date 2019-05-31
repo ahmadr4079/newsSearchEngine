@@ -1,0 +1,30 @@
+.logo {
+  width: 200px;
+  padding: 20px;
+}
+.searchResultBase {
+  margin: 20px;
+}
+.resultItem {
+  padding: 20px;
+}
+a {
+  text-decoration: none;
+}
+.header {
+  display: inline-block;
+  padding: 30px;
+}
+.inputSearch {
+  background: #ffffff;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+  -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+  -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+}
+.buttonSubmit {
+  background-color: cornflowerblue;
+  color: white;
+}
+.warning{
+  color: red;
+}
