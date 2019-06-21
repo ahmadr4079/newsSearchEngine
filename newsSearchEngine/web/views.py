@@ -33,6 +33,8 @@ def search(request):
                 #for customize html tag form highlight matched terms 
                 htmlFormat = highlight.HtmlFormatter('b')
                 results.formatter = htmlFormat
+                results.fragmenter.maxchars = 300
+                results.fragmenter.surround = 150
                 paginator = Paginator(results,15)
                 page = request.GET.get('page')
                 resultWithPage = paginator.get_page(page)
@@ -52,6 +54,8 @@ def search(request):
             #for customize html tag form highlight matched terms 
             htmlFormat = highlight.HtmlFormatter('b')
             results.formatter = htmlFormat
+            results.fragmenter.maxchars = 300
+            results.fragmenter.surround = 150
             paginator = Paginator(results,15)
             page = request.GET.get('page')
             resultWithPage = paginator.get_page(page)
