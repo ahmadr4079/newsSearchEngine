@@ -1,4 +1,6 @@
-{% extends 'baseBootStrap/baseBootStrapIndex.html' %} {% load static %} 
+{% extends 'baseBootStrap/baseBootStrapIndex.html' %} 
+{% load static %}
+{% load webExtras %}
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/searchPage/searchPage.css' %}" />
 {% endblock %} 
@@ -23,7 +25,12 @@
 <div class="searchResultBase">
     {% for item in results %}
         <div class="resultItem">
-                <a href={{item.url}} >{{item.title}}</a>
+                {% if item|resultHighlight|safe %}
+                    <a href={{item.url}} >{{item|resultHighlight|safe}}</a>
+                {% else %}
+                    <a href={{item.url}} >{{item.title}}</a>
+                {% endif %}
+                
                 <p>{{ item.url }}</p>
         </div>
     {% endfor %}

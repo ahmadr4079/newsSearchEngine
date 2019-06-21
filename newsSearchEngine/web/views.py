@@ -6,6 +6,7 @@ from whoosh.qparser import QueryParser,OrGroup,MultifieldParser
 from whoosh import scoring
 from .indexNews import IndexNews
 from django.core.paginator import Paginator
+from whoosh import highlight
 
 # Create your views here.
 
@@ -28,6 +29,10 @@ def search(request):
             query = queryParser.parse(inputQuery)
             with ix.searcher(weighting=scoring.BM25F()) as searcher:
                 results = searcher.search(query,terms=True,limit=None)
+                
+                #for customize html tag form highlight matched terms 
+                htmlFormat = highlight.HtmlFormatter('b')
+                results.formatter = htmlFormat
                 paginator = Paginator(results,15)
                 page = request.GET.get('page')
                 resultWithPage = paginator.get_page(page)
@@ -43,6 +48,10 @@ def search(request):
         query = queryParser.parse(inputQuery)
         with ix.searcher(weighting=scoring.BM25F()) as searcher:
             results = searcher.search(query,terms=True,limit=None)
+
+            #for customize html tag form highlight matched terms 
+            htmlFormat = highlight.HtmlFormatter('b')
+            results.formatter = htmlFormat
             paginator = Paginator(results,15)
             page = request.GET.get('page')
             resultWithPage = paginator.get_page(page)
