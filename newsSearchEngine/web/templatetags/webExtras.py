@@ -4,5 +4,9 @@ from whoosh.highlight import HtmlFormatter
 register = template.Library()
 
 @register.filter
-def resultHighlight(value):
+def resultHighlightTitle(value):
     return value.highlights("title")
+
+@register.filter
+def resultHighlightSummary(value):
+    return value.highlights("summary")
