@@ -31,6 +31,7 @@ class IndexNews:
         for item in self.data:
             writer.add_document(newsAgency= item['newsagency'],
                                 title= item['title'],
+                                summary = item['summary'],
                                 content= item['content'],
                                 url = item['url'])
         writer.commit()
