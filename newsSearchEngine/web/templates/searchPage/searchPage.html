@@ -26,15 +26,15 @@
     {% for item in results %}
         <div class="resultItem">
                 {% if item|resultHighlightTitle|safe %}
-                    <a class="title" href={{item.url}} >{{item|resultHighlightTitle|safe}}</a>
+                    <a class="title col-md-6" href={{item.url}} >{{item|resultHighlightTitle|safe}}</a>
                 {% else %}
-                    <a class="title" href={{item.url}} >{{item.title}}</a>
+                    <a class="title col-md-6" href={{item.url}} >{{item.title}}</a>
                 {% endif %}
-                <p class='url'>{{ item.url }}</p>
+                <p class='url col-md-6'>{{ item.url }}</p>
                 {% if item|resultHighlightSummary|safe %}
-                    <p class="summary">{{ item|resultHighlightSummary|safe }}</p>
+                    <p class="summary col-md-6">{{ item|resultHighlightSummary|safe }}...</p>
                 {% else %}
-                    <p class="summary">{{ item.summary }}</p>
+                    <p class="summary col-md-6">{{ item.summary }}...</p>
                 {% endif %}
         </div>
     {% endfor %}
