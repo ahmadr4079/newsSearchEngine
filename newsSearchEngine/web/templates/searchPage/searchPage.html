@@ -25,13 +25,17 @@
 <div class="searchResultBase">
     {% for item in results %}
         <div class="resultItem">
-                {% if item|resultHighlight|safe %}
-                    <a href={{item.url}} >{{item|resultHighlight|safe}}</a>
+                {% if item|resultHighlightTitle|safe %}
+                    <a class="title" href={{item.url}} >{{item|resultHighlightTitle|safe}}</a>
                 {% else %}
-                    <a href={{item.url}} >{{item.title}}</a>
+                    <a class="title" href={{item.url}} >{{item.title}}</a>
                 {% endif %}
-                
-                <p>{{ item.url }}</p>
+                <p class='url'>{{ item.url }}</p>
+                {% if item|resultHighlightSummary|safe %}
+                    <p class="summary">{{ item|resultHighlightSummary|safe }}</p>
+                {% else %}
+                    <p class="summary">{{ item.summary }}</p>
+                {% endif %}
         </div>
     {% endfor %}
 </div>

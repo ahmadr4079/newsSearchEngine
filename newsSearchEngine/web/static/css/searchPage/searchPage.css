@@ -63,3 +63,13 @@ a {
 .test1{
   padding-bottom: 40px;
 }
+.title{
+  font-size: 16px;
+}
+.url{
+  font-size: 14px;
+  color: rgb(1, 122, 82);
+}
+.summary{
+  font-size: 14px;
+}
