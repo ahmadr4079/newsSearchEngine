@@ -25,7 +25,7 @@ def search(request):
         else:
             # queryParser = QueryParser(fieldname='content',schema=ix.schema,group=OrGroup)
             # queryParser = MultifieldParser(['title','content'],schema=ix.schema,group=OrGroup)
-            queryParser = MultifieldParser(['title','content'],schema=ix.schema)
+            queryParser = MultifieldParser(['title','content','summary'],schema=ix.schema)
             query = queryParser.parse(inputQuery)
             with ix.searcher(weighting=scoring.BM25F()) as searcher:
                 results = searcher.search(query,terms=True,limit=None)
@@ -44,7 +44,7 @@ def search(request):
         inputQuery = request.session['inputQuery']
         inputQuery = inputQuery
         # queryParser = QueryParser(fieldname='content',schema=ix.schema,group=OrGroup)
-        queryParser = MultifieldParser(['title','content'],schema=ix.schema)
+        queryParser = MultifieldParser(['title','content','summary'],schema=ix.schema)
         query = queryParser.parse(inputQuery)
         with ix.searcher(weighting=scoring.BM25F()) as searcher:
             results = searcher.search(query,terms=True,limit=None)
