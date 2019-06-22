@@ -11,7 +11,7 @@
             {% csrf_token %}
             <div class="form-group row ContentFromSearchPage">
                 <div class="test">
-                <input type="text" class="form-control inputSearch" id="inputQueryIdSearchPage" name='inputQuerySearchPage'>
+                <input type="text" class="form-control inputSearch" id="inputQueryIdSearchPage" name='inputQuerySearchPage' value="{{ inputQuery }}">
                 </div>
                 <div class="test">
                     <button type="submit" class="btn col-form-label buttonSubmit">جستجو</button>

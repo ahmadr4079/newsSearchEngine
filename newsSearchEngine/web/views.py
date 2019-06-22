@@ -39,12 +39,12 @@ def search(request):
                 page = request.GET.get('page')
                 resultWithPage = paginator.get_page(page)
                 context = {
-                'results':resultWithPage
+                'results':resultWithPage,
+                'inputQuery':inputQuery
                 }
                 return render(request,'searchPage/searchPage.html',context=context)
     else:
         inputQuery = request.session['inputQuery']
-        inputQuery = inputQuery
         # queryParser = QueryParser(fieldname='content',schema=ix.schema,group=OrGroup)
         queryParser = MultifieldParser(['title','content','summary'],schema=ix.schema)
         query = queryParser.parse(inputQuery)
@@ -60,7 +60,8 @@ def search(request):
             page = request.GET.get('page')
             resultWithPage = paginator.get_page(page)
             context = {
-            'results':resultWithPage
+            'results':resultWithPage,
+            'inputQuery':inputQuery
             }
             return render(request,'searchPage/searchPage.html',context=context)
 
